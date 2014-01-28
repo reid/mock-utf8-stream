@@ -1,0 +1,28 @@
+{
+  "name": "mock-utf8-stream",
+  "version": "0.0.0",
+  "description": "Mock readable and writable streams for testing stdin and stdout UTF-8 text.",
+  "main": "index.js",
+  "scripts": {
+    "test": "istanbul test _mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:reid/mock-stream.git"
+  },
+  "keywords": [
+    "mock",
+    "stream",
+    "test"
+  ],
+  "author": "Reid Burke <me@reidburke.com> (http://reidburke.com)",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/reid/mock-stream/issues"
+  },
+  "devDependencies": {
+    "chai": "~1.8.1",
+    "istanbul": "~0.2.4",
+    "mocha": "~1.17.1"
+  }
+}
