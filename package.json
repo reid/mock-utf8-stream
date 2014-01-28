@@ -4,6 +4,7 @@
   "description": "Mock readable and writable streams for testing stdin and stdout UTF-8 text.",
   "main": "index.js",
   "scripts": {
+    "pretest": "jshint *.js test/*.js",
     "test": "istanbul test _mocha"
   },
   "repository": {
@@ -20,7 +21,11 @@
   "bugs": {
     "url": "https://github.com/reid/mock-stream/issues"
   },
+  "jshintConfig": {
+    "node": true
+  },
   "devDependencies": {
+    "jshint": "~2.4.3",
     "chai": "~1.8.1",
     "istanbul": "~0.2.4",
     "mocha": "~1.17.1"
