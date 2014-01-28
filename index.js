@@ -1,9 +1,5 @@
 "use strict";
 
-/**
- * @module streams
- */
-
 var util = require("util");
 var EventEmitter = require("events").EventEmitter;
 
