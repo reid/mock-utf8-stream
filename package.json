@@ -1,6 +1,6 @@
 {
   "name": "mock-utf8-stream",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Mock readable and writable streams for UTF-8 text.",
   "main": "index.js",
   "scripts": {
