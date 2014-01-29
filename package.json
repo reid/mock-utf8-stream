@@ -19,7 +19,7 @@
   "author": "Reid Burke <me@reidburke.com> (http://reidburke.com)",
   "license": "BSD",
   "bugs": {
-    "url": "https://github.com/reid/mock-stream/issues"
+    "url": "https://github.com/reid/mock-utf8-stream/issues"
   },
   "jshintConfig": {
     "node": true
