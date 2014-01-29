@@ -85,4 +85,13 @@ describe("MockWritableStream", function () {
         mock.write("foo");
         mock.write("bar" + expectedString);
     });
+    it("captureData should capture all data after its called", function () {
+        var expectedString = "dogcow";
+        var mock = new streams.MockWritableStream();
+        mock.write("foo");
+        mock.captureData();
+        mock.write("bar" + expectedString);
+        mock.write("baz");
+        assert.strictEqual(mock.capturedData, "bar" + expectedString + "baz");
+    });
 });

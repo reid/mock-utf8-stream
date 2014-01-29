@@ -103,6 +103,29 @@ MockWritableStream.prototype.end = NOOP;
 MockWritableStream.prototype.write = WRITE;
 
 /**
+ * Begin capturing data events into an internal buffer
+ * which can be accessed by the `capturedData` property.
+ *
+ * @method captureData
+ */
+MockWritableStream.prototype.captureData = function () {
+    var self = this;
+
+    self.dataEvents = [];
+
+    self.on("data", function ondata(data) {
+        data = makeString(data);
+        self.dataEvents.push(data);
+    });
+
+    Object.defineProperty(self, "capturedData", {
+        get: function () {
+            return self.dataEvents.join("");
+        }
+    });
+};
+
+/**
  * Call the given callback when expectedString
  * is written to this stream. The callback recieves
  * a string of all data written since the expect call.
