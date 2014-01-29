@@ -1,7 +1,7 @@
 {
   "name": "mock-utf8-stream",
   "version": "0.0.0",
-  "description": "Mock readable and writable streams for testing stdin and stdout UTF-8 text.",
+  "description": "Mock readable and writable streams for UTF-8 text.",
   "main": "index.js",
   "scripts": {
     "pretest": "jshint *.js test/*.js",
