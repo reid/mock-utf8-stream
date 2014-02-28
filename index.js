@@ -75,11 +75,22 @@ MockReadableStream.prototype.write = WRITE;
  * @extends YetiEventEmitter
  */
 function MockWritableStream() {
-    EventEmitter.call(this);
+    var self = this;
+
+    EventEmitter.call(self);
 
     if (DEBUG) {
-        this.id = (Math.random() * 100000) | 0;
+        self.id = (Math.random() * 100000) | 0;
     }
+
+    self.dataEvents = [];
+    self.hasDataListener = false;
+
+    Object.defineProperty(self, "capturedData", {
+        get: function () {
+            return self.dataEvents.join("");
+        }
+    });
 }
 
 util.inherits(MockWritableStream, EventEmitter);
@@ -113,16 +124,14 @@ MockWritableStream.prototype.captureData = function () {
 
     self.dataEvents = [];
 
-    self.on("data", function ondata(data) {
-        data = makeString(data);
-        self.dataEvents.push(data);
-    });
+    if (!self.hasDataListener) {
+        self.hasDataListener = true;
 
-    Object.defineProperty(self, "capturedData", {
-        get: function () {
-            return self.dataEvents.join("");
-        }
-    });
+        self.on("data", function ondata(data) {
+            data = makeString(data);
+            self.dataEvents.push(data);
+        });
+    }
 };
 
 /**

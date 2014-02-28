@@ -94,4 +94,14 @@ describe("MockWritableStream", function () {
         mock.write("baz");
         assert.strictEqual(mock.capturedData, "bar" + expectedString + "baz");
     });
+    it("calling captureData again should capture only data since the most recent captureData call", function () {
+        var expectedString = "dogcow";
+        var mock = new streams.MockWritableStream();
+        mock.write("foo");
+        mock.captureData();
+        mock.write("baz");
+        mock.captureData();
+        mock.write("bar" + expectedString);
+        assert.strictEqual(mock.capturedData, "bar" + expectedString);
+    });
 });
