@@ -23,7 +23,7 @@ function example(opts, cb) {
 // Begin capturing data events.
 // You can read captured data as a UTF-8
 // string on the `stdout.capturedData` property.
-stdout.captureData();
+stdout.startCapture();
 
 example({
     stdin: stdin,

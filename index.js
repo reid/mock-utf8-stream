@@ -84,7 +84,7 @@ function MockWritableStream() {
     }
 
     self.dataEvents = [];
-    self.hasDataListener = false;
+    self.dataListener = null;
 
     Object.defineProperty(self, "capturedData", {
         get: function () {
@@ -117,22 +117,48 @@ MockWritableStream.prototype.write = WRITE;
  * Begin capturing data events into an internal buffer
  * which can be accessed by the `capturedData` property.
  *
- * @method captureData
+ * @method startCapture
  */
-MockWritableStream.prototype.captureData = function () {
+MockWritableStream.prototype.startCapture = function () {
     var self = this;
 
-    self.dataEvents = [];
+    self.clearCapturedData();
 
-    if (!self.hasDataListener) {
-        self.hasDataListener = true;
-
-        self.on("data", function ondata(data) {
+    if (!self.dataListener) {
+        self.dataListener = function ondata(data) {
             data = makeString(data);
             self.dataEvents.push(data);
-        });
+        };
+
+        self.on("data", self.dataListener);
     }
 };
+
+MockWritableStream.prototype.captureData = function () {
+    console.error("captureData() is deprecated, use startCapture() instead");
+    MockWritableStream.prototype.startCapture.call(this);
+};
+
+/**
+ * Stop capturing data events into an internal buffer.
+ *
+ * @method stopCapture
+ */
+MockWritableStream.prototype.stopCapture = function () {
+    if (this.dataListener) {
+        this.removeListener("data", this.dataListener);
+    }
+};
+
+/**
+ * Reset the internal data events buffer.
+ *
+ * @method clearCapturedData
+ */
+MockWritableStream.prototype.clearCapturedData = function () {
+    this.dataEvents = [];
+};
+
 
 /**
  * Call the given callback when expectedString

@@ -85,6 +85,7 @@ describe("MockWritableStream", function () {
         mock.write("foo");
         mock.write("bar" + expectedString);
     });
+    // Deprecated API
     it("captureData should capture all data after its called", function () {
         var expectedString = "dogcow";
         var mock = new streams.MockWritableStream();
@@ -94,6 +95,7 @@ describe("MockWritableStream", function () {
         mock.write("baz");
         assert.strictEqual(mock.capturedData, "bar" + expectedString + "baz");
     });
+    // Deprecated API
     it("calling captureData again should capture only data since the most recent captureData call", function () {
         var expectedString = "dogcow";
         var mock = new streams.MockWritableStream();
@@ -103,5 +105,43 @@ describe("MockWritableStream", function () {
         mock.captureData();
         mock.write("bar" + expectedString);
         assert.strictEqual(mock.capturedData, "bar" + expectedString);
+    });
+    it("startCapture should capture all data after its called", function () {
+        var expectedString = "dogcow";
+        var mock = new streams.MockWritableStream();
+        mock.write("foo");
+        mock.startCapture();
+        mock.write("bar" + expectedString);
+        mock.write("baz");
+        assert.strictEqual(mock.capturedData, "bar" + expectedString + "baz");
+    });
+    it("calling startCapture again should capture only data since the most recent startCapture call", function () {
+        var expectedString = "dogcow";
+        var mock = new streams.MockWritableStream();
+        mock.write("foo");
+        mock.startCapture();
+        mock.write("baz");
+        mock.startCapture();
+        mock.write("bar" + expectedString);
+        assert.strictEqual(mock.capturedData, "bar" + expectedString);
+    });
+    it("calling stopCapture stops capturing data", function () {
+        var expectedString = "dogcow";
+        var mock = new streams.MockWritableStream();
+        mock.startCapture();
+        mock.write("bar" + expectedString);
+        mock.stopCapture();
+        mock.write("baz");
+        assert.strictEqual(mock.capturedData, "bar" + expectedString);
+    });
+    it("clearCapturedData should reset captured data", function () {
+        var expectedString = "dogcow";
+        var mock = new streams.MockWritableStream();
+        mock.write("foo");
+        mock.startCapture();
+        mock.write("bar" + expectedString);
+        assert.strictEqual(mock.capturedData, "bar" + expectedString);
+        mock.clearCapturedData();
+        assert.strictEqual(mock.capturedData, "");
     });
 });
