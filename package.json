@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:reid/mock-stream.git"
+    "url": "git@github.com:reid/mock-utf8-stream.git"
   },
   "keywords": [
     "mock",
